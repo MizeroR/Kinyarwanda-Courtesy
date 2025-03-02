@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinyarwanda Greetings</title>
+    <link href="./output.css" rel="stylesheet">
+    <style>
+        .flashcard {
+          perspective: 1000px;
+          height: 250px; /* Fixed height for consistency */
+        }
+        .flashcard-inner {
+          transition: transform 0.6s;
+          transform-style: preserve-3d;
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+        .flashcard.flipped .flashcard-inner {
+          transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+          backface-visibility: hidden;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 1.5rem; /* Add padding for better spacing */
+          border-radius: 0.5rem; /* Match Tailwind's rounded-lg */
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Match Tailwind's shadow-lg */
+        }
+        .flashcard-back {
+          transform: rotateY(180deg);
+        }
+      </style>
+    </head>
+    <body class="bg-gradient-to-r from-blue-50 to-purple-50 font-sans p-8">
+    
+      <!-- Page Header -->
+      <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800">Kinyarwanda Greetings Flashcards</h1>
+        <p class="text-gray-600 mt-2">Learn common greetings in Kinyarwanda!</p>
+      </header>
+    
+      <!-- Flashcards Container -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Flashcard 1 -->
+        <div class="flashcard bg-white rounded-lg shadow-lg cursor-pointer" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 1</div>
+              <div class="text-gray-600 mt-2">"Muraho?"</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 1</div>
+              <div class="text-gray-600 mt-2">"Muraho namwe".</div>
+              <button onclick="playAudio('muraho', event)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Flashcard 2 -->
+        <div class="flashcard bg-white rounded-lg shadow-lg cursor-pointer" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 2</div>
+              <div class="text-gray-600 mt-2">How do you ask "How are you?"</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 2</div>
+              <div class="text-gray-600 mt-2">You say "Amakuru Yanyu?".</div>
+              <button onclick="playAudio('amakuru', event)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Flashcard 3 -->
+        <div class="flashcard bg-white rounded-lg shadow-lg cursor-pointer" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 3</div>
+              <div class="text-gray-600 mt-2">"Amakuru Yanyu?"</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 3</div>
+              <div class="text-gray-600 mt-2">"Amakuru yange ni meza".</div>
+              <button onclick="playAudio('nimeza', event)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Add more flashcards as needed -->
+      </div>
+    
+      <!-- Audio Player Script -->
+      <script>
+        // Function to flip the card
+        function flipCard(card) {
+          card.classList.toggle('flipped');
+        }
+    
+        // Function to play audio
+        function playAudio(fileName, event) {
+          // Stop event propagation to prevent flipping the card
+          event.stopPropagation();
+          
+          // Play the audio
+          const audio = new Audio(`audio/${fileName}.m4a`);
+          audio.play().catch(error => console.error("Error playing audio:", error));
+        }
+      </script>
+
+</body>
+</html>
