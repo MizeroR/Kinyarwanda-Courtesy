@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rwandan Food Flashcards</title>
+  <link href="./output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-orange-50 to-yellow-50 font-sans p-8">
+
+  <!-- Page Header with Food Theme -->
+  <header class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-800">Rwandan Food Flashcards</h1>
+    <p class="text-gray-600 mt-2">Learn traditional Rwandan foods in Kinyarwanda!</p>
+    <div class="mt-4 flex justify-center gap-2">
+      <span class="inline-block w-8 h-2 bg-red-500 rounded-full"></span>
+      <span class="inline-block w-8 h-2 bg-green-600 rounded-full"></span>
+      <span class="inline-block w-8 h-2 bg-yellow-400 rounded-full"></span>
+    </div>
+  </header>
+
+  <!-- Flashcards Container -->
+  <div id="flashcards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Flashcards will be inserted here -->
+  </div>
+
+  <!-- Footer with Navigation -->
+  <footer class="mt-12 flex flex-col items-center gap-4 p-6">
+    <div class="flex justify-center gap-4 w-full">
+      <a href="index.html" class="inline-block px-6 py-2 text-white bg-orange-500 rounded-full shadow-md hover:bg-orange-600 transition duration-200">
+        Home
+      </a>
+      <a href="quiz.html" class="inline-block px-6 py-2 text-white bg-green-500 rounded-full shadow-md hover:bg-green-600 transition duration-200">
+        Quiz
+      </a>
+    </div>
+    <p class="text-sm text-gray-600">&copy; 2025 Kinyarwanda Delights</p>
+  </footer>
+
+  <script>
+    // Authentic Rwandan foods with Kinyarwanda names
+    const foodFlashcards = [
+      { 
+        english: "Ugali (Cassava Bread)",
+        kinyarwanda: "Ubugali",
+        image: "assets/img/ugali.jpeg",
+        description: "Staple made from cassava flour"
+      },
+      { 
+        english: "Beans",
+        kinyarwanda: "Ibishyimbo",
+        image: "assets/img/beans.jpg",
+        description: "Often cooked with oil and onions"
+      },
+      { 
+        english: "Plantains",
+        kinyarwanda: "Ibitoke",
+        image: "assets/img/plantains.jpeg",
+        description: "Fried or boiled green bananas"
+      },
+      { 
+        english: "African Eggplant",
+        kinyarwanda: "Intoryi",
+        image: "assets/img/eggplant.jpeg",
+        description: "Often cooked with peanut sauce"
+      },
+      { 
+        english: "Sweet Potatoes",
+        kinyarwanda: "Ibijumba",
+        image: "assets/img/sweet-potatoes.jpeg",
+        description: "Boiled or roasted"
+      },
+      { 
+        english: "Cassava Leaves",
+        kinyarwanda: "Isombe y'umwumbati",
+        image: "assets/img/cassava-leaves.jpeg",
+        description: "Cooked with palm oil"
+      },
+      { 
+        english: "Milk",
+        kinyarwanda: "Amata",
+        image: "assets/img/milk.jpeg",
+        description: "Often drunk fermented"
+      },
+      { 
+        english: "Sorghum Beer",
+        kinyarwanda: "Urwagwa",
+        image: "assets/img/sorghum-beer.jpeg",
+        description: "Traditional alcoholic drink"
+      }
+    ];
+
+    // Function to generate food flashcards
+    function generateFoodFlashcards() {
+      const container = document.getElementById("flashcards-container");
+
+      foodFlashcards.forEach((food) => {
+        const flashcard = document.createElement("div");
+        flashcard.className = "h-[300px] [perspective:1000px]";
+        
+        const flashcardInner = document.createElement("div");
+        flashcardInner.className = "relative w-full h-full transition-all duration-600 [transform-style:preserve-3d]";
+
+        flashcardInner.innerHTML = `
+          <!-- Front of Card - Food Image -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-md [backface-visibility:hidden]">
+            <div class="relative">
+              <img src="${food.image}" alt="${food.english}" 
+                   class="w-[150px] h-[150px] object-cover rounded-full border-4 border-white shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
+              <div class="absolute -bottom-2 left-0 right-0 text-center">
+                <span class="inline-block px-3 py-1 bg-white text-sm font-medium rounded-full shadow-md">?</span>
+              </div>
+            </div>
+            <p class="mt-4 text-lg text-gray-600">What's this called?</p>
+          </div>
+          
+          <!-- Back of Card - Food Info -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-amber-50 rounded-xl shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)]">
+            <h3 class="text-2xl font-bold text-gray-800">${food.kinyarwanda}</h3>
+            <p class="text-gray-600">${food.english}</p>
+            <p class="mt-2 text-sm text-gray-500 italic">${food.description}</p>
+            
+            <button onclick="playAudio('${food.kinyarwanda}.mp3', event)" 
+              class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-all hover:scale-105 flex items-center">
+              <span>🔊</span>
+              <span class="ml-2">Pronounce</span>
+            </button>
+          </div>
+        `;
+
+        flashcard.appendChild(flashcardInner);
+        flashcard.onclick = () => {
+          flashcardInner.classList.toggle('[transform:rotateY(180deg)]');
+        };
+
+        container.appendChild(flashcard);
+      });
+    }
+
+    // Function to play audio
+    function playAudio(fileName, event) {
+      event.stopPropagation();
+      const audio = new Audio(`/assets/audio/${fileName}`);
+      audio.play().catch(error => console.error("Error playing audio:", error));
+    }
+
+    // Generate flashcards when page loads
+    generateFoodFlashcards();
+  </script>
+</body>
+</html>
