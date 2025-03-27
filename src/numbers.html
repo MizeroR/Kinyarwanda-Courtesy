@@ -68,16 +68,16 @@
   <script>
     // Array of objects for flashcards
     const flashcardsData = [
-      { question: "How many pens are there?", object: "🖊️", answer: "eshanu" },
-      { question: "How many apples are there?", object: "🍎", answer: "eshatu" },
-      { question: "How many books are there?", object: "📚", answer: "birindwi" },
-      { question: "How many balloons are there?", object: "🎈", answer: "icumi" },
-      { question: "How many cars are there?", object: "🚗", answer: "ebyiri" },
-      { question: "How many stars are there?", object: "⭐", answer: "umunani" },
-      { question: "How many flowers are there?", object: "🌸", answer: "esheshatu" },
-      { question: "How many cookies are there?", object: "🍪", answer: "enye" },
-      { question: "How many pencils are there?", object: "✏️", answer: "icyenda" },
-      { question: "How many balloons are there?", object: "🎈", answer: "kimwe" },
+      { question: "How many pens are there?", object: "🖊️", answer: "eshanu", audio: "eshanu.m4a"},
+      { question: "How many apples are there?", object: "🍎", answer: "eshatu", audio: "eshatu.m4a" },
+      { question: "How many books are there?", object: "📚", answer: "birindwi", audio: "birindwi.m4a" },
+      { question: "How many balloons are there?", object: "🎈", answer: "icumi", audio: "icumi.m4a" },
+      { question: "How many cars are there?", object: "🚗", answer: "ebyiri", audio: "ebyiri.m4a" },
+      { question: "How many stars are there?", object: "⭐", answer: "umunani", audio: "umunani.m4a" },
+      { question: "How many flowers are there?", object: "🌸", answer: "esheshatu", audio: "esheshatu.m4a" },
+      { question: "How many cookies are there?", object: "🍪", answer: "enye", audio: "enye.m4a" },
+      { question: "How many pencils are there?", object: "✏️", answer: "icyenda", audio: "icyenda.m4a" },
+      { question: "How many balloons are there?", object: "🎈", answer: "kimwe", audio: "kimwe.m4a" },
     ];
 
     // Function to shuffle the flashcards array
@@ -110,6 +110,10 @@
             <div class="flashcard-back">
               <div class="text-2xl font-bold text-blue-600">Answer</div>
               <div class="text-4xl mt-4">${card.answer}</div>
+              <button onclick="playAudio('${card.audio}', event)" 
+                class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                🔊 Listen
+              </button>
             </div>
           </div>
         `;
@@ -120,7 +124,15 @@
 
     // Function to flip the card
     function flipCard(card) {
-      card.classList.toggle('flipped');
+      if(!event.target.closest('button')){
+        card.classList.toggle('flipped');
+      }
+    }
+
+    function playAudio(fileName, event){
+      event.stopPropagation();
+      const audio = new Audio(`assets/audio/${fileName}`);
+      audio.play().catch(error => console.error("Error playing audio",error));
     }
 
     // Generate flashcards when the page loads
