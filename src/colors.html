@@ -36,16 +36,16 @@
   <script>
     // Array of color flashcards
     const flashcardsData = [
-      { color: "red", kinyarwanda: "Umutuku", hex: "#EF4444" },
-      { color: "blue", kinyarwanda: "Ubururu", hex: "#3B82F6" },
-      { color: "green", kinyarwanda: "Icyatsi", hex: "#10B981" },
-      { color: "yellow", kinyarwanda: "Umuhondo", hex: "#F59E0B" },
-      { color: "purple", kinyarwanda: "Umuhondo w'ishyari", hex: "#8B5CF6" },
-      { color: "orange", kinyarwanda: "Umuhondo w'umutuku", hex: "#F97316" },
-      { color: "pink", kinyarwanda: "Umuhondo w'umutuku muto", hex: "#EC4899" },
-      { color: "brown", kinyarwanda: "Umuhondo w'umukara", hex: "#78350F" },
-      { color: "black", kinyarwanda: "Umukara", hex: "#000000" },
-      { color: "white", kinyarwanda: "Umweru", hex: "#FFFFFF", textColor: "text-gray-800" }
+      { color: "red", kinyarwanda: "Umutuku", hex: "#EF4444", audio:"umutuku.m4a" },
+      { color: "blue", kinyarwanda: "Ubururu", hex: "#3B82F6", audio:"ubururu.m4a" },
+      { color: "green", kinyarwanda: "Icyatsi", hex: "#10B981", audio:"icyatsi.m4a" },
+      { color: "yellow", kinyarwanda: "Umuhondo", hex: "#F59E0B", audio:"umuhondo.m4a" },
+      { color: "purple", kinyarwanda: "Umuhondo w'ishyari", hex: "#8B5CF6", audio:"umuhondo2.m4a" },
+      { color: "orange", kinyarwanda: "Umuhondo w'umutuku", hex: "#F97316", audio:"umuhondo3.m4a" },
+      { color: "pink", kinyarwanda: "Umuhondo w'umutuku muto", hex: "#EC4899", audio:"umuhondo4.m4a" },
+      { color: "brown", kinyarwanda: "Umuhondo w'umukara", hex: "#78350F", audio:"umuhondo5.m4a" },
+      { color: "black", kinyarwanda: "Umukara", hex: "#000000", audio:"umukara.m4a" },
+      { color: "white", kinyarwanda: "Umweru", hex: "#FFFFFF", textColor: "text-gray-800", audio:"umweru.m4a" }
     ];
 
     // Function to generate flashcards
@@ -73,7 +73,7 @@
           <div class="absolute inset-0 flex flex-col items-center justify-center p-6 rounded-lg shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)] ${textClass}" style="background-color: ${color.hex}">
             <div class="text-2xl font-bold">${color.kinyarwanda}</div>
             <div class="text-lg mt-2">(${color.color})</div>
-            <button onclick="playAudio('${color.kinyarwanda}.mp3', event)" 
+            <button onclick="playAudio('${color.audio}', event)" 
               class="mt-4 bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors">
               🔊 Listen
             </button>
@@ -92,7 +92,7 @@
     // Function to play audio
     function playAudio(fileName, event) {
       event.stopPropagation();
-      const audio = new Audio(`/audio/${fileName}`);
+      const audio = new Audio(`assets/audio/${fileName}`);
       audio.play().catch(error => console.error("Error playing audio:", error));
     }
 
