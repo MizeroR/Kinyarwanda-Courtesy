@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kinyarwanda Colors</title>
+  <link href="./output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-purple-50 font-sans p-8">
+
+  <!-- Page Header -->
+  <header class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-800">Colors Flashcards</h1>
+    <p class="text-gray-600 mt-2">Learn colors in Kinyarwanda!</p>
+  </header>
+
+  <!-- Flashcards Container -->
+  <div id="flashcards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Flashcards will be dynamically inserted here -->
+  </div>
+
+  <section>
+    <footer class="flex flex-col items-center gap-4 p-6">
+      <div class="flex justify-between w-full max-w-4xl">
+        <a href="index.html" class="inline-block px-4 py-2 text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
+          Home
+        </a>
+        <a href="quiz.html" class="inline-block px-4 py-2 text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
+          Quiz
+        </a>
+      </div>
+      <p class="text-sm text-gray-600">&copy; 2025 Kinyarwanda Learning. All rights reserved.</p>
+    </footer>
+  </section>
+
+  <script>
+    // Array of color flashcards
+    const flashcardsData = [
+      { color: "red", kinyarwanda: "Umutuku", hex: "#EF4444" },
+      { color: "blue", kinyarwanda: "Ubururu", hex: "#3B82F6" },
+      { color: "green", kinyarwanda: "Icyatsi", hex: "#10B981" },
+      { color: "yellow", kinyarwanda: "Umuhondo", hex: "#F59E0B" },
+      { color: "purple", kinyarwanda: "Umuhondo w'ishyari", hex: "#8B5CF6" },
+      { color: "orange", kinyarwanda: "Umuhondo w'umutuku", hex: "#F97316" },
+      { color: "pink", kinyarwanda: "Umuhondo w'umutuku muto", hex: "#EC4899" },
+      { color: "brown", kinyarwanda: "Umuhondo w'umukara", hex: "#78350F" },
+      { color: "black", kinyarwanda: "Umukara", hex: "#000000" },
+      { color: "white", kinyarwanda: "Umweru", hex: "#FFFFFF", textColor: "text-gray-800" }
+    ];
+
+    // Function to generate flashcards
+    function generateFlashcards() {
+      const container = document.getElementById("flashcards-container");
+
+      flashcardsData.forEach((color) => {
+        const flashcard = document.createElement("div");
+        flashcard.className = "h-[250px] [perspective:1000px]";
+        
+        const flashcardInner = document.createElement("div");
+        flashcardInner.className = "relative w-full h-full transition-all duration-600 [transform-style:preserve-3d]";
+        
+        // Use textColor class for white card (better visibility)
+        const textClass = color.color === "white" ? "text-gray-800" : "text-white";
+        const shadowClass = color.color === "white" ? "shadow-[0_0_12px_rgba(0,0,0,0.3)]" : "shadow-[0_0_8px_rgba(0,0,0,0.2)]";
+        
+        flashcardInner.innerHTML = `
+          <!-- Front of the Card - Color Shape -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-6 bg-white rounded-lg shadow-md [backface-visibility:hidden]">
+            <div class="w-[120px] h-[120px] rounded-[20%] my-4 ${shadowClass} border-2 border-opacity-10 border-black" style="background-color: ${color.hex}"></div>
+            <p class="text-xl mt-2">What color is this?</p>
+          </div>
+          <!-- Back of the Card - Color Name -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-6 rounded-lg shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)] ${textClass}" style="background-color: ${color.hex}">
+            <div class="text-2xl font-bold">${color.kinyarwanda}</div>
+            <div class="text-lg mt-2">(${color.color})</div>
+            <button onclick="playAudio('${color.kinyarwanda}.mp3', event)" 
+              class="mt-4 bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors">
+              🔊 Listen
+            </button>
+          </div>
+        `;
+
+        flashcard.appendChild(flashcardInner);
+        flashcard.onclick = () => {
+          flashcardInner.classList.toggle('[transform:rotateY(180deg)]');
+        };
+
+        container.appendChild(flashcard);
+      });
+    }
+
+    // Function to play audio
+    function playAudio(fileName, event) {
+      event.stopPropagation();
+      const audio = new Audio(`/audio/${fileName}`);
+      audio.play().catch(error => console.error("Error playing audio:", error));
+    }
+
+    // Generate flashcards when the page loads
+    generateFlashcards();
+  </script>
+</body>
+</html>

@@ -40,29 +40,56 @@
         }
       </style>
     </head>
-    <body class="bg-gradient-to-r from-blue-50 to-purple-50 font-sans p-8">
+    <body class="p-8 font-sans bg-gradient-to-r from-blue-50 to-purple-50">
     
       <!-- Page Header -->
-      <header class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-800">Kinyarwanda Greetings Flashcards</h1>
-        <p class="text-gray-600 mt-2">Learn common greetings in Kinyarwanda!</p>
+      <header class="bg-sky-100 p-4 shadow-md">
+        <div class="flex items-center justify-between max-w-4xl mx-auto">
+            <!-- Logo on the left -->
+            <img src="assets/img/logo.png" alt="Logo" class="w-24 h-24" /> <!-- Replace with your logo path -->
+    
+            <!-- Title in the center -->
+            <h1 class="text-2xl font-bold text-center text-gray-800">KLearning</h1> <!-- Replace "Wikiganiro" with your desired title -->
+    
+            <!-- Dropdown Icon on the right -->
+            <div class="relative">
+                <button id="dropdownButton" class="focus:outline-none">
+                    <!-- SVG Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+                <div id="dropdownMenu" class="hidden absolute right-0 w-48 mt-2 bg-white rounded-md shadow-lg z-10">
+                    <ul class="py-2">
+                        <li><a href="index.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a></li>
+                        <li><a href="get-started.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Get Started</a></li>
+                        <li><a href="quiz.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Quiz</a></li>
+                        <li><a href="contact.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
       </header>
+      <section class="mb-12 text-center px-4">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Kinyarwanda Greetings Flashcards</h1>
+        <p class="mt-2 text-gray-600 text-lg md:text-xl">Learn common greetings in Kinyarwanda!</p>
+      </section>
     
       <!-- Flashcards Container -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <!-- Flashcard 1 -->
-        <div class="flashcard bg-white rounded-lg shadow-lg cursor-pointer" onclick="flipCard(this)">
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
           <div class="flashcard-inner">
             <!-- Front of the Card -->
             <div class="flashcard-front">
               <div class="text-2xl font-bold text-blue-600">Question 1</div>
-              <div class="text-gray-600 mt-2">"Muraho?"</div>
+              <div class="mt-2 text-gray-600">How to formally great people</div>
             </div>
             <!-- Back of the Card -->
             <div class="flashcard-back">
               <div class="text-2xl font-bold text-blue-600">Answer 1</div>
-              <div class="text-gray-600 mt-2">"Muraho namwe".</div>
-              <button onclick="playAudio('muraho', event)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+              <div class="mt-2 text-gray-600">"Muraho".</div>
+              <button onclick="playAudio('muraho', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
                 🔊 Listen
               </button>
             </div>
@@ -70,18 +97,18 @@
         </div>
     
         <!-- Flashcard 2 -->
-        <div class="flashcard bg-white rounded-lg shadow-lg cursor-pointer" onclick="flipCard(this)">
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
           <div class="flashcard-inner">
             <!-- Front of the Card -->
             <div class="flashcard-front">
               <div class="text-2xl font-bold text-blue-600">Question 2</div>
-              <div class="text-gray-600 mt-2">How do you ask "How are you?"</div>
+              <div class="mt-2 text-gray-600">How do you ask "How are you?"</div>
             </div>
             <!-- Back of the Card -->
             <div class="flashcard-back">
               <div class="text-2xl font-bold text-blue-600">Answer 2</div>
-              <div class="text-gray-600 mt-2">You say "Amakuru Yanyu?".</div>
-              <button onclick="playAudio('amakuru', event)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+              <div class="mt-2 text-gray-600">You say "Amakuru Yanyu?".</div>
+              <button onclick="playAudio('amakuru', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
                 🔊 Listen
               </button>
             </div>
@@ -89,27 +116,165 @@
         </div>
     
         <!-- Flashcard 3 -->
-        <div class="flashcard bg-white rounded-lg shadow-lg cursor-pointer" onclick="flipCard(this)">
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
           <div class="flashcard-inner">
             <!-- Front of the Card -->
             <div class="flashcard-front">
               <div class="text-2xl font-bold text-blue-600">Question 3</div>
-              <div class="text-gray-600 mt-2">"Amakuru Yanyu?"</div>
+              <div class="mt-2 text-gray-600">"Amakuru Yanyu?"</div>
             </div>
             <!-- Back of the Card -->
             <div class="flashcard-back">
               <div class="text-2xl font-bold text-blue-600">Answer 3</div>
-              <div class="text-gray-600 mt-2">"Amakuru yange ni meza".</div>
-              <button onclick="playAudio('nimeza', event)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+              <div class="mt-2 text-gray-600">"Amakuru yange ni meza".</div>
+              <button onclick="playAudio('nimeza', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
                 🔊 Listen
               </button>
             </div>
           </div>
         </div>
-    
-        <!-- Add more flashcards as needed -->
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 4</div>
+              <div class="mt-2 text-gray-600">How to great people in the morning</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 4</div>
+              <div class="mt-2 text-gray-600">"Mwaramutse".</div>
+              <button onclick="playAudio('nimeza', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 5</div>
+              <div class="mt-2 text-gray-600">How to great people in the afternoon and night</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 5</div>
+              <div class="mt-2 text-gray-600">"Mwiriwe"</div>
+              <button onclick="playAudio('nimeza', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 6</div>
+              <div class="mt-2 text-gray-600">How to say bye to people in the morning</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 6</div>
+              <div class="mt-2 text-gray-600">"Mwirirwe"</div>
+              <button onclick="playAudio('nimeza', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 7</div>
+              <div class="mt-2 text-gray-600">How to say bye to people in the night</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 7</div>
+              <div class="mt-2 text-gray-600">"Muramuke"</div>
+              <button onclick="playAudio('nimeza', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div> 
+        <!-- Flashcard 1 -->
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 8</div>
+              <div class="mt-2 text-gray-600">What is you name?</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 8</div>
+              <div class="mt-2 text-gray-600">"Nitwa...".</div>
+              <button onclick="playAudio('muraho', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div> 
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 9</div>
+              <div class="mt-2 text-gray-600">What is you name?</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 9</div>
+              <div class="mt-2 text-gray-600">"Mfite imyaka...".</div>
+              <button onclick="playAudio('muraho', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div> 
+        <div class="bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <!-- Front of the Card -->
+            <div class="flashcard-front">
+              <div class="text-2xl font-bold text-blue-600">Question 10</div>
+              <div class="mt-2 text-gray-600">Where do you live?</div>
+            </div>
+            <!-- Back of the Card -->
+            <div class="flashcard-back">
+              <div class="text-2xl font-bold text-blue-600">Answer 10</div>
+              <div class="mt-2 text-gray-600">"Ntuye...".</div>
+              <button onclick="playAudio('muraho', event)" class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600">
+                🔊 Listen
+              </button>
+            </div>
+          </div>
+        </div>       
       </div>
-    
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Create Your Flashcards</h2>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input id="flashcardQuestion" type="text" placeholder="Question" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg" required />
+          <input id="flashcardAnswer" type="text" placeholder="Answer" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg" required />
+          <button id="addFlashcardBtn" class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Add Flashcard</button>
+       </div>
+      </div>
+      <section>
+        <footer class="flex flex-col items-center gap-4 p-6">
+          <div class="flex justify-between w-full max-w-4xl">
+            <a href="index.html" class="inline-block px-4 py-2 text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
+                Home
+            </a>
+            <a href="quiz.html" class="inline-block px-4 py-2 text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
+                Quiz
+            </a>
+        </div>
+        <p class="text-sm text-gray-600">&copy; 2025 Your Website. All rights reserved.</p>
+        </footer>
+      </section>
       <!-- Audio Player Script -->
       <script>
         // Function to flip the card
@@ -123,9 +288,71 @@
           event.stopPropagation();
           
           // Play the audio
-          const audio = new Audio(`audio/${fileName}.m4a`);
+          const audio = new Audio(`assets/audio/${fileName}.m4a`);
           audio.play().catch(error => console.error("Error playing audio:", error));
         }
+        // Function to create a flashcard
+        function createFlashcard(question, answer) {
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4";
+            card.onclick = () => flipCard(card);
+            
+            card.innerHTML = `
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <div class="text-2xl font-bold text-blue-600">${question}</div>
+                        <div class="mt-2 text-gray-600">${question}</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="text-2xl font-bold text-blue-600">Answer</div>
+                        <div class="mt-2 text-gray-600">${answer}</div>
+                        <button class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600" onclick="playAudio('${answer}', event)">
+                            🔊 Listen
+                        </button>
+                        <button class="px-4 py-2 mt-4 text-red-500 rounded-lg hover:bg-red-600" onclick="deleteFlashcard(event)">Delete</button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Event listener for the add flashcard button
+        document.getElementById('addFlashcardBtn').addEventListener('click', () => {
+            const questionInput = document.getElementById('flashcardQuestion');
+            const answerInput = document.getElementById('flashcardAnswer');
+            
+            const question = questionInput.value;
+            const answer = answerInput.value;
+
+            if(question && answer) {
+                const newCard = createFlashcard(question, answer);
+                // Append the new flashcard to the existing container
+                document.getElementById('userFlashcardsContainer').appendChild(newCard);
+                questionInput.value = '';
+                answerInput.value = '';
+            } else {
+                alert("Please fill out both fields.");
+            }
+        });
+
+        // Function to delete the flashcard
+        function deleteFlashcard(event) {
+            event.stopPropagation(); // Prevents card flip
+            const flashcard = event.target.closest('.flashcard'); // Find the parent flashcard
+            flashcard.remove(); // Remove the flashcard from the DOM
+        }
+        
+        document.getElementById('dropdownButton').addEventListener('click', function() {
+          document.getElementById('dropdownMenu').classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking elsewhere
+        document.addEventListener('click', function(event) {
+          if (!event.target.closest('#dropdownButton')) {
+            document.getElementById('dropdownMenu').classList.add('hidden');
+          }
+        });
       </script>
 
 </body>
