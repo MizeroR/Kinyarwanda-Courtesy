@@ -44,52 +44,59 @@
         english: "Ugali (Cassava Bread)",
         kinyarwanda: "Ubugali",
         image: "assets/img/ugali.jpeg",
+        audio: "ubugali",
         description: "Staple made from cassava flour"
       },
       { 
         english: "Beans",
         kinyarwanda: "Ibishyimbo",
-        image: "assets/img/beans.jpg",
+        image: "assets/img/beans.jpeg",
+        audio: "ibishyimbo",
         description: "Often cooked with oil and onions"
       },
       { 
         english: "Plantains",
-        kinyarwanda: "Ibitoke",
+        kinyarwanda: "Ibitoki",
         image: "assets/img/plantains.jpeg",
+        audio: "ibitoki",
         description: "Fried or boiled green bananas"
       },
       { 
         english: "African Eggplant",
         kinyarwanda: "Intoryi",
         image: "assets/img/eggplant.jpeg",
+        audio: "intoryi",
         description: "Often cooked with peanut sauce"
       },
       { 
         english: "Sweet Potatoes",
         kinyarwanda: "Ibijumba",
         image: "assets/img/sweet-potatoes.jpeg",
+        audio: "ibijumba",
         description: "Boiled or roasted"
       },
       { 
         english: "Cassava Leaves",
-        kinyarwanda: "Isombe y'umwumbati",
+        kinyarwanda: "Isombe",
         image: "assets/img/cassava-leaves.jpeg",
+        audio: "isombe",
         description: "Cooked with palm oil"
       },
       { 
         english: "Milk",
         kinyarwanda: "Amata",
         image: "assets/img/milk.jpeg",
+        audio: "amata",
         description: "Often drunk fermented"
       },
       { 
         english: "Sorghum Beer",
         kinyarwanda: "Urwagwa",
         image: "assets/img/sorghum-beer.jpeg",
+        audio: "urwagwa",
         description: "Traditional alcoholic drink"
       }
     ];
-
     // Function to generate food flashcards
     function generateFoodFlashcards() {
       const container = document.getElementById("flashcards-container");
@@ -106,7 +113,7 @@
           <div class="absolute inset-0 flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-md [backface-visibility:hidden]">
             <div class="relative">
               <img src="${food.image}" alt="${food.english}" 
-                   class="w-[150px] h-[150px] object-cover rounded-full border-4 border-white shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
+                  class="w-[150px] h-[150px] object-cover rounded-full border-4 border-white shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
               <div class="absolute -bottom-2 left-0 right-0 text-center">
                 <span class="inline-block px-3 py-1 bg-white text-sm font-medium rounded-full shadow-md">?</span>
               </div>
@@ -120,7 +127,7 @@
             <p class="text-gray-600">${food.english}</p>
             <p class="mt-2 text-sm text-gray-500 italic">${food.description}</p>
             
-            <button onclick="playAudio('${food.kinyarwanda}.mp3', event)" 
+            <button onclick="playAudio('${food.audio}', event)" 
               class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-all hover:scale-105 flex items-center">
               <span>🔊</span>
               <span class="ml-2">Pronounce</span>
@@ -128,23 +135,28 @@
           </div>
         `;
 
-        flashcard.appendChild(flashcardInner);
-        flashcard.onclick = () => {
-          flashcardInner.classList.toggle('[transform:rotateY(180deg)]');
+        // Only set ONE click handler
+        flashcard.onclick = (e) => {
+          // Only flip if the click wasn't on a button
+          if (!e.target.closest('button')) {
+            flashcardInner.classList.toggle('[transform:rotateY(180deg)]');
+          }
         };
 
+        flashcard.appendChild(flashcardInner);
         container.appendChild(flashcard);
       });
     }
 
     // Function to play audio
     function playAudio(fileName, event) {
+      // Stop event propagation to prevent flipping the card
       event.stopPropagation();
-      const audio = new Audio(`/assets/audio/${fileName}`);
+      
+      // Play the audio
+      const audio = new Audio(`assets/audio/${fileName}.m4a`);
       audio.play().catch(error => console.error("Error playing audio:", error));
     }
-
-    // Generate flashcards when page loads
     generateFoodFlashcards();
   </script>
 </body>
