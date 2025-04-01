@@ -78,11 +78,15 @@
         <a href="index.html" class="inline-block px-4 py-2 text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
             Home
         </a>
+        <a href="progress-tracker.html" class="inline-block px-4 py-2 text-white bg-green-500 rounded-lg shadow-md hover:bg-green-600 transition duration-200">
+          My Progress
+        </a>
     </div>
     <p class="text-sm text-gray-600">&copy; 2025 Your Website. All rights reserved.</p>
     </footer>
   </section>
 
+  <script src="progress-helper.js"></script>
   <script>
     // Quiz questions from your flashcards
     const quizQuestions = [
@@ -270,6 +274,37 @@
       }
       
       scoreText.textContent = message;
+      // Save score to progress tracker
+      if (currentCategory !== 'all') {
+        trackQuizScore(currentCategory, percentage);
+      } else {
+        // If 'all' category, track the score for each category based on the questions answered
+        const categoryScores = {
+          food: { correct: 0, total: 0 },
+          numbers: { correct: 0, total: 0 },
+          colors: { correct: 0, total: 0 },
+          greetings: { correct: 0, total: 0 }
+        };
+        
+        // Count correct answers by category
+        for (let i = 0; i < shuffledQuestions.length; i++) {
+          const question = shuffledQuestions[i];
+          const category = question.category;
+          
+          categoryScores[category].total++;
+          if (i < currentQuestionIndex && i < score) {
+            categoryScores[category].correct++;
+          }
+        }
+        
+        // Calculate and save percentage for each category
+        for (const [category, data] of Object.entries(categoryScores)) {
+          if (data.total > 0) {
+            const categoryPercentage = Math.round((data.correct / data.total) * 100);
+            trackQuizScore(category, categoryPercentage);
+          }
+        }
+      }
     }
 
     // Event listeners

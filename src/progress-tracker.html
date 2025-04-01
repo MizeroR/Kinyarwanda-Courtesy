@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Learning Progress</title>
+  <link href="./output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-purple-50 font-sans p-8">
+
+  <!-- Page Header -->
+  <header class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-800">Your Learning Progress</h1>
+    <p class="text-gray-600 mt-2">Track your journey learning Kinyarwanda</p>
+  </header>
+
+  <!-- Progress Overview Section -->
+  <section class="max-w-4xl mx-auto mb-12 bg-white rounded-xl shadow-md p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Overall Progress</h2>
+    <div class="flex flex-col gap-4">
+      <!-- Overall progress bar -->
+      <div>
+        <div class="flex justify-between mb-1">
+          <span class="text-gray-700">Total completion</span>
+          <span id="overall-percentage" class="text-gray-700 font-medium">0%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-4">
+          <div id="overall-progress" class="bg-blue-500 h-4 rounded-full" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <!-- Stats summary -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <h3 class="font-bold text-gray-700">Flashcards</h3>
+          <p id="flashcards-viewed" class="text-3xl font-bold text-blue-600">0</p>
+          <p class="text-sm text-gray-500">cards viewed</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h3 class="font-bold text-gray-700">Quiz Score</h3>
+          <p id="quiz-score" class="text-3xl font-bold text-green-600">0%</p>
+          <p class="text-sm text-gray-500">correct answers</p>
+        </div>
+        <div class="bg-purple-50 p-4 rounded-lg">
+          <h3 class="font-bold text-gray-700">Study Streak</h3>
+          <p id="study-streak" class="text-3xl font-bold text-purple-600">0</p>
+          <p class="text-sm text-gray-500">days in a row</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Progress Section -->
+  <section class="max-w-4xl mx-auto mb-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Category Progress</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Food Category -->
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-orange-100 rounded-full">
+            <span class="text-2xl">🍲</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">Food</h3>
+        </div>
+        <div class="mb-2">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Flashcards viewed</span>
+            <span id="food-progress-text" class="text-sm text-gray-700">0/8</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="food-progress-bar" class="bg-orange-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Quiz score</span>
+            <span id="food-quiz-text" class="text-sm text-gray-700">0%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="food-quiz-bar" class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <a href="food.html" class="inline-block px-4 py-2 text-sm text-white bg-orange-500 rounded-lg hover:bg-orange-600 transition duration-200">
+          Continue Learning
+        </a>
+      </div>
+
+      <!-- Numbers Category -->
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full">
+            <span class="text-2xl">🔢</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">Numbers</h3>
+        </div>
+        <div class="mb-2">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Flashcards viewed</span>
+            <span id="numbers-progress-text" class="text-sm text-gray-700">0/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="numbers-progress-bar" class="bg-blue-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Quiz score</span>
+            <span id="numbers-quiz-text" class="text-sm text-gray-700">0%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="numbers-quiz-bar" class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <a href="numbers.html" class="inline-block px-4 py-2 text-sm text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-200">
+          Continue Learning
+        </a>
+      </div>
+
+      <!-- Colors Category -->
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-purple-100 rounded-full">
+            <span class="text-2xl">🎨</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">Colors</h3>
+        </div>
+        <div class="mb-2">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Flashcards viewed</span>
+            <span id="colors-progress-text" class="text-sm text-gray-700">0/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="colors-progress-bar" class="bg-purple-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Quiz score</span>
+            <span id="colors-quiz-text" class="text-sm text-gray-700">0%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="colors-quiz-bar" class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <a href="colors.html" class="inline-block px-4 py-2 text-sm text-white bg-purple-500 rounded-lg hover:bg-purple-600 transition duration-200">
+          Continue Learning
+        </a>
+      </div>
+
+      <!-- Greetings Category -->
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-full">
+            <span class="text-2xl">👋</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">Greetings</h3>
+        </div>
+        <div class="mb-2">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Flashcards viewed</span>
+            <span id="greetings-progress-text" class="text-sm text-gray-700">0/7</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="greetings-progress-bar" class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm text-gray-700">Quiz score</span>
+            <span id="greetings-quiz-text" class="text-sm text-gray-700">0%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="greetings-quiz-bar" class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+        <a href="greetings.html" class="inline-block px-4 py-2 text-sm text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-200">
+          Continue Learning
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Section -->
+  <section class="max-w-4xl mx-auto mb-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Achievements</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div id="achievement-first-day" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">🌟</span>
+        </div>
+        <p class="text-center text-sm font-medium">First Day</p>
+      </div>
+      <div id="achievement-all-food" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">🍲</span>
+        </div>
+        <p class="text-center text-sm font-medium">Food Master</p>
+      </div>
+      <div id="achievement-all-numbers" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">🔢</span>
+        </div>
+        <p class="text-center text-sm font-medium">Number Wizard</p>
+      </div>
+      <div id="achievement-all-colors" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">🎨</span>
+        </div>
+        <p class="text-center text-sm font-medium">Color Expert</p>
+      </div>
+      <div id="achievement-all-greetings" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">👋</span>
+        </div>
+        <p class="text-center text-sm font-medium">Greeting Pro</p>
+      </div>
+      <div id="achievement-perfect-quiz" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">🏆</span>
+        </div>
+        <p class="text-center text-sm font-medium">Perfect Quiz</p>
+      </div>
+      <div id="achievement-streak-3" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">🔥</span>
+        </div>
+        <p class="text-center text-sm font-medium">3-Day Streak</p>
+      </div>
+      <div id="achievement-all-categories" class="flex flex-col items-center bg-white p-4 rounded-lg shadow opacity-50">
+        <div class="w-16 h-16 flex items-center justify-center bg-yellow-100 rounded-full mb-2">
+          <span class="text-2xl">🎓</span>
+        </div>
+        <p class="text-center text-sm font-medium">Kinyarwanda Scholar</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer with Navigation -->
+  <footer class="mt-12 flex flex-col items-center gap-4 p-6">
+    <div class="flex justify-center gap-4 w-full">
+      <a href="index.html" class="inline-block px-6 py-2 text-white bg-blue-500 rounded-full shadow-md hover:bg-blue-600 transition duration-200">
+        Home
+      </a>
+      <a href="quiz.html" class="inline-block px-6 py-2 text-white bg-green-500 rounded-full shadow-md hover:bg-green-600 transition duration-200">
+        Quiz
+      </a>
+    </div>
+    <p class="text-sm text-gray-600">&copy; 2025 Kinyarwanda Delights</p>
+  </footer>
+
+  <script src="progress-tracker.js"></script>
+</body>
+</html>

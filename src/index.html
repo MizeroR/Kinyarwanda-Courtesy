@@ -18,7 +18,36 @@
   </style>
 
 </head>
+
 <body class="relative p-6 font-sans bg-gradient-to-r from-blue-50 to-purple-50">
+
+  <header class="bg-sky-100 p-4 shadow-md">
+    <div class="flex items-center justify-between max-w-4xl mx-auto">
+        <!-- Logo on the left -->
+        <img src="assets/img/logo.png" alt="Logo" class="w-24 h-24" /> <!-- Replace with your logo path -->
+  
+        <!-- Title in the center -->
+        <h1 class="text-2xl font-bold text-center text-gray-800">KLearning</h1> <!-- Replace "Wikiganiro" with your desired title -->
+  
+        <!-- Dropdown Icon on the right -->
+        <div class="relative">
+            <button id="dropdownButton" class="focus:outline-none">
+                <!-- SVG Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+            <div id="dropdownMenu" class="hidden absolute right-0 w-48 mt-2 bg-white rounded-md shadow-lg z-10">
+                <ul class="py-2">
+                    <li><a href="index.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a></li>
+                    <li><a href="get-started.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Get Started</a></li>
+                    <li><a href="quiz.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Quiz</a></li>
+                    <li><a href="progress-tracker.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Progress</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </header>
   
   <!-- Hero Section -->
   <div class="flex flex-col items-center justify-center min-h-screen gap-4 px-4 md:gap-6 text-center">
@@ -36,7 +65,9 @@
     <a href="get-started.html" class="px-6 sm:px-8 py-3 text-white transition duration-300 bg-blue-500 rounded-lg shadow-lg hover:bg-blue-600 animate__animated animate__pulse animate__infinite">
       Get Started
     </a>
-
+    <a href="progress-tracker.html" class="px-6 sm:px-8 py-3 text-white transition duration-300 bg-green-500 rounded-lg shadow-lg hover:bg-green-600">
+      Track Progress
+    </a>
     <!-- Illustration or Image -->
     <div>
       <img src="assets/img/withparents.png" alt="Parents and Kids Learning Together" class="object-cover mix-blend-multiply">
@@ -46,5 +77,35 @@
     <p class="text-gray-800">© 2025 Kinyarwanda Kids. All rights reserved.</p>
 </footer>
 
+<script>
+  // Dropdown menu functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    if (dropdownButton && dropdownMenu) {
+      // Toggle dropdown when clicking the button
+      dropdownButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('hidden');
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          dropdownMenu.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>
+<script src="progress-helper.js"></script>
+<script>
+  // Initialize progress tracking on first visit
+  document.addEventListener('DOMContentLoaded', function() {
+    // If there's no existing progress data, this will create the default structure
+    getProgressData();
+  });
+</script>
 </body>
 </html>

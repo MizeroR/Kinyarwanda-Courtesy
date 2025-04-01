@@ -18,7 +18,16 @@
       <span class="inline-block w-8 h-2 bg-yellow-400 rounded-full"></span>
     </div>
   </header>
-
+  <!-- Progress Bar -->
+  <div class="max-w-4xl mx-auto mb-8">
+    <div class="flex justify-between mb-1">
+      <span class="text-sm text-gray-700">Your progress</span>
+      <span id="progress-text" class="text-sm text-gray-700">0/8</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2.5">
+      <div id="progress-bar" class="bg-green-600 h-2.5 rounded-full" style="width: 0%"></div>
+    </div>
+  </div>
   <!-- Flashcards Container -->
   <div id="flashcards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     <!-- Flashcards will be inserted here -->
@@ -33,10 +42,14 @@
       <a href="quiz.html" class="inline-block px-6 py-2 text-white bg-green-500 rounded-full shadow-md hover:bg-green-600 transition duration-200">
         Quiz
       </a>
+      <a href="progress-tracker.html" class="inline-block px-6 py-2 text-white bg-blue-500 rounded-full shadow-md hover:bg-blue-600 transition duration-200">
+        My Progress
+      </a>
     </div>
     <p class="text-sm text-gray-600">&copy; 2025 Kinyarwanda Delights</p>
   </footer>
 
+  <script src="progress-helper.js"></script>
   <script>
     // Authentic Rwandan foods with Kinyarwanda names
     const foodFlashcards = [
@@ -140,6 +153,10 @@
           // Only flip if the click wasn't on a button
           if (!e.target.closest('button')) {
             flashcardInner.classList.toggle('[transform:rotateY(180deg)]');
+            if (!flashcardInner.classList.contains('[transform:rotateY(180deg)]')) {
+              trackFlashcard('food', food.id);
+              updateProgressBar();
+            }
           }
         };
 
@@ -157,7 +174,18 @@
       const audio = new Audio(`assets/audio/${fileName}.m4a`);
       audio.play().catch(error => console.error("Error playing audio:", error));
     }
-    generateFoodFlashcards();
+    function updateProgressBar() {
+      const progressData = getProgressData();
+      const foodProgress = progressData.flashcards.food;
+      const percentage = (foodProgress.length / foodFlashcards.length) * 100;
+      
+      document.getElementById('progress-bar').style.width = `${percentage}%`;
+      document.getElementById('progress-text').textContent = `${foodProgress.length}/${foodFlashcards.length}`;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      generateFoodFlashcards();
+      updateProgressBar();
+    });
   </script>
 </body>
 </html>
