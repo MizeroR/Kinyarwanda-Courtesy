@@ -301,46 +301,54 @@
           id: "greeting-1",
           question: "How to formally greet people",
           answer: "Muraho",
-          audio: "muraho.m4a",
+          audio: "muraho",
         },
         {
           id: "greeting-2",
           question: "How do you ask 'How are you?'",
           answer: "Amakuru Yanyu?",
-          audio: "amakuru.m4a",
+          audio: "amakuru",
         },
         {
           id: "greeting-3",
           question: "'Amakuru Yanyu?'",
           answer: "Amakuru yange ni meza",
-          audio: "nimeza.m4a",
+          audio: "nimeza",
         },
         {
           id: "greeting-4",
           question: "How to greet people in the morning",
           answer: "Mwaramutse",
-          audio: "mwaramutse.m4a",
+          audio: "mwaramutse",
         },
         {
           id: "greeting-5",
           question: "How to greet people in the afternoon and night",
           answer: "Mwiriwe",
-          audio: "mwiriwe.m4a",
+          audio: "mwiriwe",
         },
         {
           id: "greeting-6",
           question: "How to say bye to people in the morning",
           answer: "Mwirirwe",
-          audio: "mwirirwe.m4a",
+          audio: "mwirirwe",
         },
         {
           id: "greeting-7",
           question: "How to say bye to people in the night",
           answer: "Muramuke",
-          audio: "muramuke.m4a",
+          audio: "muramuke",
         },
       ];
 
+      function playAudio(fileName, event) {
+      // Stop event propagation to prevent flipping the card
+      event.stopPropagation();
+      
+      // Play the audio
+      const audio = new Audio(`assets/audio/${fileName}.m4a`);
+      audio.play().catch(error => console.error("Error playing audio:", error));
+      }
       // Function to initialize greetings flashcards
       function initGreetingsFlashcards() {
         // Add click handlers to all flashcards
