@@ -238,6 +238,7 @@
         </div>
       </div>
     </div>
+    <div id="userFlashcardsContainer" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6"></div>
     <div class="mt-12">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">
         Create Your Flashcards
@@ -295,83 +296,80 @@
     <!-- Audio Player Script -->
     <script src="progress-helper-fixed.js"></script>
     <script>
-      // Array of greeting flashcards
-      const greetingsData = [
-        {
-          id: "greeting-1",
-          question: "How to formally greet people",
-          answer: "Muraho",
-          audio: "muraho",
-        },
-        {
-          id: "greeting-2",
-          question: "How do you ask 'How are you?'",
-          answer: "Amakuru Yanyu?",
-          audio: "amakuru",
-        },
-        {
-          id: "greeting-3",
-          question: "'Amakuru Yanyu?'",
-          answer: "Amakuru yange ni meza",
-          audio: "nimeza",
-        },
-        {
-          id: "greeting-4",
-          question: "How to greet people in the morning",
-          answer: "Mwaramutse",
-          audio: "mwaramutse",
-        },
-        {
-          id: "greeting-5",
-          question: "How to greet people in the afternoon and night",
-          answer: "Mwiriwe",
-          audio: "mwiriwe",
-        },
-        {
-          id: "greeting-6",
-          question: "How to say bye to people in the morning",
-          answer: "Mwirirwe",
-          audio: "mwirirwe",
-        },
-        {
-          id: "greeting-7",
-          question: "How to say bye to people in the night",
-          answer: "Muramuke",
-          audio: "muramuke",
-        },
-      ];
+  // Function to create a new flashcard element
+  function createFlashcard(question, answer) {
+    const card = document.createElement('div');
+    card.className = "bg-white rounded-lg shadow-lg cursor-pointer flashcard p-4";
+    card.onclick = function() { flipCard(this); };
+    
+    card.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="text-2xl font-bold text-blue-600">Question</div>
+          <div class="mt-2 text-gray-600">${question}</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="text-2xl font-bold text-blue-600">Answer</div>
+          <div class="mt-2 text-gray-600">${answer}</div>
+          <button class="px-4 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600" onclick="playAudio('${answer.toLowerCase().split(' ')[0]}', event)">
+            🔊 Listen
+          </button>
+          <button class="px-4 py-2 mt-2 text-white bg-red-500 rounded-lg hover:bg-red-600" onclick="deleteFlashcard(event)">
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+    
+    return card;
+  }
 
-      function playAudio(fileName, event) {
-      // Stop event propagation to prevent flipping the card
-      event.stopPropagation();
+  // Function to flip cards
+  function flipCard(card) {
+    card.classList.toggle('flipped');
+  }
+
+  // Function to delete flashcards
+  function deleteFlashcard(event) {
+    event.stopPropagation();
+    const flashcard = event.target.closest('.flashcard');
+    flashcard.remove();
+  }
+
+  // Function to play audio
+  function playAudio(fileName, event) {
+    event.stopPropagation();
+    const audio = new Audio(`assets/audio/${fileName}.m4a`);
+    audio.play().catch(error => console.error("Error playing audio:", error));
+  }
+
+  // Add event listener for the create button
+  document.getElementById('addFlashcardBtn').addEventListener('click', function() {
+    const questionInput = document.getElementById('flashcardQuestion');
+    const answerInput = document.getElementById('flashcardAnswer');
+    
+    const question = questionInput.value.trim();
+    const answer = answerInput.value.trim();
+
+    if(question && answer) {
+      const newCard = createFlashcard(question, answer);
+      document.getElementById('userFlashcardsContainer').appendChild(newCard);
       
-      // Play the audio
-      const audio = new Audio(`assets/audio/${fileName}.m4a`);
-      audio.play().catch(error => console.error("Error playing audio:", error));
-      }
-      // Function to initialize greetings flashcards
-      function initGreetingsFlashcards() {
-        // Add click handlers to all flashcards
-        document.querySelectorAll(".flashcard").forEach((flashcard, index) => {
-          flashcard.onclick = (e) => {
-            // Only flip if the click wasn't on a button
-            if (!e.target.closest("button")) {
-              flashcard.classList.toggle("flipped");
+      // Clear inputs
+      questionInput.value = '';
+      answerInput.value = '';
+      
+      // Focus back on question for quick entry
+      questionInput.focus();
+    } else {
+      alert("Please fill out both question and answer fields.");
+    }
+  });
 
-              // Track progress when card is flipped
-              if (flashcard.classList.contains("flipped")) {
-                const greetingId = greetingsData[index].id;
-                trackFlashcard("greetings", greetingId);
-              }
-            }
-          };
-        });
-      }
-
-      // Initialize when the page loads
-      document.addEventListener("DOMContentLoaded", function () {
-        initGreetingsFlashcards();
-      });
-    </script>
+  // Initialize existing flashcards
+  document.querySelectorAll('.flashcard').forEach(card => {
+    card.onclick = function() { flipCard(this); };
+  });
+</script>
   </body>
 </html>
