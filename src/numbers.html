@@ -68,79 +68,84 @@
     <p class="text-sm text-gray-600">&copy; 2025 Your Website. All rights reserved.</p>
     </footer>
   <!-- Script to Generate Flashcards -->
-  <script>
-    // Array of objects for flashcards
-    const flashcardsData = [
-      { question: "How many pens are there?", object: "🖊️", answer: "eshanu", audio: "eshanu.m4a"},
-      { question: "How many apples are there?", object: "🍎", answer: "eshatu", audio: "eshatu.m4a" },
-      { question: "How many books are there?", object: "📚", answer: "birindwi", audio: "birindwi.m4a" },
-      { question: "How many balloons are there?", object: "🎈", answer: "icumi", audio: "icumi.m4a" },
-      { question: "How many cars are there?", object: "🚗", answer: "ebyiri", audio: "ebyiri.m4a" },
-      { question: "How many stars are there?", object: "⭐", answer: "umunani", audio: "umunani.m4a" },
-      { question: "How many flowers are there?", object: "🌸", answer: "esheshatu", audio: "esheshatu.m4a" },
-      { question: "How many cookies are there?", object: "🍪", answer: "enye", audio: "enye.m4a" },
-      { question: "How many pencils are there?", object: "✏️", answer: "icyenda", audio: "icyenda.m4a" },
-      { question: "How many balloons are there?", object: "🎈", answer: "kimwe", audio: "kimwe.m4a" },
-    ];
+  <script src="progress-helper-fixed.js"></script>
+<script>
+  // Array of objects for flashcards
+  const flashcardsData = [
+    { id: "number-1", question: "How many pens are there?", object: "🖊️", count: 5, answer: "eshanu", audio: "eshanu.m4a"},
+    { id: "number-2", question: "How many apples are there?", object: "🍎", count: 3, answer: "eshatu", audio: "eshatu.m4a" },
+    { id: "number-3", question: "How many books are there?", object: "📚", count: 7, answer: "birindwi", audio: "birindwi.m4a" },
+    { id: "number-4", question: "How many balloons are there?", object: "🎈", count: 10, answer: "icumi", audio: "icumi.m4a" },
+    { id: "number-5", question: "How many cars are there?", object: "🚗", count: 2, answer: "ebyiri", audio: "ebyiri.m4a" },
+    { id: "number-6", question: "How many stars are there?", object: "⭐", count: 8, answer: "umunani", audio: "umunani.m4a" },
+    { id: "number-7", question: "How many flowers are there?", object: "🌸", count: 6, answer: "esheshatu", audio: "esheshatu.m4a" },
+    { id: "number-8", question: "How many cookies are there?", object: "🍪", count: 4, answer: "enye", audio: "enye.m4a" },
+    { id: "number-9", question: "How many pencils are there?", object: "✏️", count: 9, answer: "icyenda", audio: "icyenda.m4a" },
+    { id: "number-10", question: "How many balloons are there?", object: "🎈", count: 1, answer: "kimwe", audio: "kimwe.m4a" },
+  ];
 
-    // Function to shuffle the flashcards array
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
+  // Function to shuffle the flashcards array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
+    return array;
+  }
 
-    // Function to generate flashcards
-    function generateFlashcards() {
-      const container = document.getElementById("flashcards-container");
-      const shuffledData = shuffleArray(flashcardsData);
+  // Function to generate flashcards
+  function generateFlashcards() {
+    const container = document.getElementById("flashcards-container");
+    const shuffledData = shuffleArray([...flashcardsData]);
 
-      shuffledData.forEach((card, index) => {
-        const flashcard = document.createElement("div");
-        flashcard.className = "flashcard bg-white rounded-lg shadow-lg cursor-pointer";
-        flashcard.onclick = () => flipCard(flashcard);
-
-        flashcard.innerHTML = `
-          <div class="flashcard-inner">
-            <!-- Front of the Card -->
-            <div class="flashcard-front">
-              <div class="text-2xl font-bold text-blue-600">${card.question}</div>
-              <div class="text-4xl mt-4">${card.object.repeat(card.answer)}</div>
-            </div>
-            <!-- Back of the Card -->
-            <div class="flashcard-back">
-              <div class="text-2xl font-bold text-blue-600">Answer</div>
-              <div class="text-4xl mt-4">${card.answer}</div>
-              <button onclick="playAudio('${card.audio}', event)" 
-                class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-                🔊 Listen
-              </button>
-            </div>
+    shuffledData.forEach((card) => {
+      const flashcard = document.createElement("div");
+      flashcard.className = "flashcard bg-white rounded-lg shadow-lg cursor-pointer";
+      
+      flashcard.innerHTML = `
+        <div class="flashcard-inner">
+          <!-- Front of the Card -->
+          <div class="flashcard-front">
+            <div class="text-2xl font-bold text-blue-600">${card.question}</div>
+            <div class="text-4xl mt-4">${card.object.repeat(card.count)}</div>
           </div>
-        `;
+          <!-- Back of the Card -->
+          <div class="flashcard-back">
+            <div class="text-2xl font-bold text-blue-600">Answer</div>
+            <div class="text-4xl mt-4">${card.answer}</div>
+            <button onclick="playAudio('${card.audio}', event)" 
+              class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+              🔊 Listen
+            </button>
+          </div>
+        </div>
+      `;
 
-        container.appendChild(flashcard);
-      });
-    }
+      flashcard.onclick = (e) => {
+        // Only flip if the click wasn't on a button
+        if (!e.target.closest('button')) {
+          flashcard.classList.toggle('flipped');
+          
+          // Track progress when card is flipped to the back
+          if (flashcard.classList.contains('flipped')) {
+            trackFlashcard('numbers', card.id);
+          }
+        }
+      };
 
-    // Function to flip the card
-    function flipCard(card) {
-      if(!event.target.closest('button')){
-        card.classList.toggle('flipped');
-      }
-    }
+      container.appendChild(flashcard);
+    });
+  }
 
-    function playAudio(fileName, event){
-      event.stopPropagation();
-      const audio = new Audio(`assets/audio/${fileName}`);
-      audio.play().catch(error => console.error("Error playing audio",error));
-    }
+  function playAudio(fileName, event){
+    event.stopPropagation();
+    const audio = new Audio(`assets/audio/${fileName}`);
+    audio.play().catch(error => console.error("Error playing audio", error));
+  }
 
-    // Generate flashcards when the page loads
-    generateFlashcards();
-  </script>
+  // Generate flashcards when the page loads
+  generateFlashcards();
+</script>
 
 </body>
 </html>

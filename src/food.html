@@ -111,59 +111,67 @@
       }
     ];
     // Function to generate food flashcards
-    function generateFoodFlashcards() {
-      const container = document.getElementById("flashcards-container");
+    // Function to generate food flashcards
+function generateFoodFlashcards() {
+  const container = document.getElementById("flashcards-container");
 
-      foodFlashcards.forEach((food) => {
-        const flashcard = document.createElement("div");
-        flashcard.className = "h-[300px] [perspective:1000px]";
-        
-        const flashcardInner = document.createElement("div");
-        flashcardInner.className = "relative w-full h-full transition-all duration-600 [transform-style:preserve-3d]";
-
-        flashcardInner.innerHTML = `
-          <!-- Front of Card - Food Image -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-md [backface-visibility:hidden]">
-            <div class="relative">
-              <img src="${food.image}" alt="${food.english}" 
-                  class="w-[150px] h-[150px] object-cover rounded-full border-4 border-white shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
-              <div class="absolute -bottom-2 left-0 right-0 text-center">
-                <span class="inline-block px-3 py-1 bg-white text-sm font-medium rounded-full shadow-md">?</span>
-              </div>
-            </div>
-            <p class="mt-4 text-lg text-gray-600">What's this called?</p>
-          </div>
-          
-          <!-- Back of Card - Food Info -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-amber-50 rounded-xl shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)]">
-            <h3 class="text-2xl font-bold text-gray-800">${food.kinyarwanda}</h3>
-            <p class="text-gray-600">${food.english}</p>
-            <p class="mt-2 text-sm text-gray-500 italic">${food.description}</p>
-            
-            <button onclick="playAudio('${food.audio}', event)" 
-              class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-all hover:scale-105 flex items-center">
-              <span>🔊</span>
-              <span class="ml-2">Pronounce</span>
-            </button>
-          </div>
-        `;
-
-        // Only set ONE click handler
-        flashcard.onclick = (e) => {
-          // Only flip if the click wasn't on a button
-          if (!e.target.closest('button')) {
-            flashcardInner.classList.toggle('[transform:rotateY(180deg)]');
-            if (!flashcardInner.classList.contains('[transform:rotateY(180deg)]')) {
-              trackFlashcard('food', food.id);
-              updateProgressBar();
-            }
-          }
-        };
-
-        flashcard.appendChild(flashcardInner);
-        container.appendChild(flashcard);
-      });
+  foodFlashcards.forEach((food, index) => {
+    // Add an ID to each food item if it doesn't have one
+    if (!food.id) {
+      food.id = `food-${index}`;
     }
+    
+    const flashcard = document.createElement("div");
+    flashcard.className = "h-[300px] [perspective:1000px]";
+    
+    const flashcardInner = document.createElement("div");
+    flashcardInner.className = "relative w-full h-full transition-all duration-600 [transform-style:preserve-3d]";
+
+    flashcardInner.innerHTML = `
+      <!-- Front of Card - Food Image -->
+      <div class="absolute inset-0 flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-md [backface-visibility:hidden]">
+        <div class="relative">
+          <img src="${food.image}" alt="${food.english}" 
+              class="w-[150px] h-[150px] object-cover rounded-full border-4 border-white shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
+          <div class="absolute -bottom-2 left-0 right-0 text-center">
+            <span class="inline-block px-3 py-1 bg-white text-sm font-medium rounded-full shadow-md">?</span>
+          </div>
+        </div>
+        <p class="mt-4 text-lg text-gray-600">What's this called?</p>
+      </div>
+      
+      <!-- Back of Card - Food Info -->
+      <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-amber-50 rounded-xl shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)]">
+        <h3 class="text-2xl font-bold text-gray-800">${food.kinyarwanda}</h3>
+        <p class="text-gray-600">${food.english}</p>
+        <p class="mt-2 text-sm text-gray-500 italic">${food.description}</p>
+        
+        <button onclick="playAudio('${food.audio}', event)" 
+          class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-all hover:scale-105 flex items-center">
+          <span>🔊</span>
+          <span class="ml-2">Pronounce</span>
+        </button>
+      </div>
+    `;
+
+    // Only set ONE click handler
+    flashcard.onclick = (e) => {
+      // Only flip if the click wasn't on a button
+      if (!e.target.closest('button')) {
+        flashcardInner.classList.toggle('[transform:rotateY(180deg)]');
+        
+        // Track progress when card is flipped to the back (not the front)
+        if (flashcardInner.classList.contains('[transform:rotateY(180deg)]')) {
+          trackFlashcard('food', food.id);
+          updateProgressBar();
+        }
+      }
+    };
+
+    flashcard.appendChild(flashcardInner);
+    container.appendChild(flashcard);
+  });
+}
 
     // Function to play audio
     function playAudio(fileName, event) {

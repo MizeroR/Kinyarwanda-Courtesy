@@ -89,6 +89,7 @@
   <script src="progress-helper.js"></script>
   <script>
     // Quiz questions from your flashcards
+    let currentCategory = 'all';
     const quizQuestions = [
       // Greetings
       { 
@@ -156,6 +157,27 @@
       }
     ];
 
+    // Function to categorize questions
+    function categorizeQuestions(questions) {
+      questions.forEach(question => {
+        // Determine category based on question content
+        if (question.question.includes("greet") || question.answer === "muraho" || 
+            question.answer === "mwaramutse" || question.answer === "mwiriwe") {
+          question.category = 'greetings';
+        } else if (question.question.includes("color") || question.answer === "umutuku" || 
+                  question.answer === "ubururu" || question.answer === "umweru" || 
+                  question.answer === "umukara" || question.answer === "umuhondo") {
+          question.category = 'colors';
+        } else if (question.answer === "gatanu" || question.answer === "gatatu" || 
+                  question.answer.includes("enye") || question.answer.includes("byiri")) {
+          question.category = 'numbers';
+        } else {
+          question.category = 'food'; // Default to food if no other match
+        }
+      });
+      return questions;
+    }
+
     // Quiz state variables
     let currentQuestionIndex = 0;
     let score = 0;
@@ -181,7 +203,11 @@
     function initQuiz() {
       currentQuestionIndex = 0;
       score = 0;
-      shuffledQuestions = [...quizQuestions].sort(() => Math.random() - 0.5);
+      
+      // Categorize and shuffle questions
+      const categorizedQuestions = categorizeQuestions([...quizQuestions]);
+      shuffledQuestions = categorizedQuestions.sort(() => Math.random() - 0.5);
+      
       showQuestion();
       quizContainer.classList.remove('hidden');
       resultsContainer.classList.add('hidden');
@@ -260,8 +286,8 @@
       quizContainer.classList.add('hidden');
       resultsContainer.classList.remove('hidden');
       
-      const percentage = Math.round((score / quizQuestions.length) * 100);
-      scoreElement.textContent = `${score}/${quizQuestions.length}`;
+      const percentage = Math.round((score / shuffledQuestions.length) * 100);
+      scoreElement.textContent = `${score}/${shuffledQuestions.length}`;
       scoreBar.style.width = `${percentage}%`;
       
       let message;
@@ -274,35 +300,32 @@
       }
       
       scoreText.textContent = message;
-      // Save score to progress tracker
-      if (currentCategory !== 'all') {
-        trackQuizScore(currentCategory, percentage);
-      } else {
-        // If 'all' category, track the score for each category based on the questions answered
-        const categoryScores = {
-          food: { correct: 0, total: 0 },
-          numbers: { correct: 0, total: 0 },
-          colors: { correct: 0, total: 0 },
-          greetings: { correct: 0, total: 0 }
-        };
-        
-        // Count correct answers by category
-        for (let i = 0; i < shuffledQuestions.length; i++) {
-          const question = shuffledQuestions[i];
-          const category = question.category;
-          
+      
+      // Calculate and save scores by category
+      const categoryScores = {
+        food: { correct: 0, total: 0 },
+        numbers: { correct: 0, total: 0 },
+        colors: { correct: 0, total: 0 },
+        greetings: { correct: 0, total: 0 }
+      };
+      
+      // Count correct answers and total questions by category
+      shuffledQuestions.forEach((question, index) => {
+        const category = question.category;
+        if (category && categoryScores[category]) {
           categoryScores[category].total++;
-          if (i < currentQuestionIndex && i < score) {
+          if (index < currentQuestionIndex && index < score) {
             categoryScores[category].correct++;
           }
         }
-        
-        // Calculate and save percentage for each category
-        for (const [category, data] of Object.entries(categoryScores)) {
-          if (data.total > 0) {
-            const categoryPercentage = Math.round((data.correct / data.total) * 100);
-            trackQuizScore(category, categoryPercentage);
-          }
+      });
+      
+      // Save scores for each category
+      for (const [category, data] of Object.entries(categoryScores)) {
+        if (data.total > 0) {
+          const categoryPercentage = Math.round((data.correct / data.total) * 100);
+          trackQuizScore(category, categoryPercentage);
+          console.log(`Saved ${category} score: ${categoryPercentage}%`);
         }
       }
     }
